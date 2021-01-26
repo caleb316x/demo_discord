@@ -1,5 +1,5 @@
 import discord
-# import requests
+import requests
 import json
 from discord.ext import commands
 
@@ -15,10 +15,9 @@ def sendbch():
     'Content-Type': 'application/json'
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-    # return response.text
-    return "Sent"
-
+    response = requests.request("POST", url, headers=headers, data=payload)    
+    
+    return json.loads(response.text)
 
 
 client = commands.Bot(command_prefix="!")
@@ -33,6 +32,12 @@ async def hello(ctx):
 
 @client.command()
 async def send(ctx):
-     print(sendbch())
+    response = sendbch()
+    if not (response.get('txId') is None):
+        await ctx.send("Sent")
+        await ctx.send("Transaction Id: "+response["txId"])
+    else:
+        await ctx.send("Not Sent") 
+        await ctx.send("Message: "+response["message"])
 
 client.run("ODAyMzg1NjkzMzQ3MDIwODAw.YAud6A.AxIxokhGFc38VJtrxYsZ2sT_zv4")
