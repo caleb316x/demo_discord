@@ -7,10 +7,10 @@ with open('wallet/wallet.json') as f:
   data = json.load(f)
 
 
-def sendbch():
+def sendbch(address):
 
     url = "https://rest-unstable.mainnet.cash/wallet/send"
-    payload="{\"walletId\": \""+data["walletId"]+"\",\"to\": [{\"cashaddr\": \""+data["reciever"]+"\",\"value\":  0.01 ,\"unit\": \"usd\"}]}"
+    payload="{\"walletId\": \""+data["walletId"]+"\",\"to\": [{\"cashaddr\": \""+address+"\",\"value\":  0.01 ,\"unit\": \"usd\"}]}"
     headers = {
     'Content-Type': 'application/json'
     }
@@ -31,13 +31,17 @@ async def hello(ctx):
     await ctx.send("Hi")
 
 @client.command()
-async def send(ctx):
-    response = sendbch()
-    if not (response.get('txId') is None):
-        await ctx.send("Sent")
-        await ctx.send("Transaction Id: "+response["txId"])
+async def send(ctx,arg):
+    response = sendbch(arg)
+
+    if not arg:
+        if not (response.get('txId') is None):
+            await ctx.send("Sent")
+            await ctx.send("Transaction Id: "+response["txId"])
+        else:
+            await ctx.send("Not Sent") 
+            await ctx.send("Message: "+response["message"])
     else:
-        await ctx.send("Not Sent") 
-        await ctx.send("Message: "+response["message"])
+        await ctx.send("Bitcoin Cash Address Required") 
 
 client.run("ODAyMzg1NjkzMzQ3MDIwODAw.YAud6A.AxIxokhGFc38VJtrxYsZ2sT_zv4")
