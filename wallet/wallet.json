@@ -1,0 +1,9 @@
+{
+    "name": "",
+    "cashaddr": "bitcoincash:qruj5efcfkk02utve6v8mg76tm0eaphcnqjkshg9w3",
+    "walletId": "seed:mainnet:pattern round cycle chalk tenant select level vanish leopard monster special range:m/44'/0'/0'/0/0",
+    "seed": "pattern round cycle chalk tenant select level vanish leopard monster special range",
+    "derivationPath": "m/44'/0'/0'/0/0",
+    "network": "mainnet",
+    "reciever": "bitcoincash:prymjtdf9upfvjtty2m8k20jlay4qc7pdqfn8z0chn"
+}
