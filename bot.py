@@ -31,17 +31,17 @@ async def hello(ctx):
     await ctx.send("Hi")
 
 @client.command()
-async def send(ctx,arg):
+async def send(ctx,arg = ""):
     response = sendbch(arg)
-
-    if not arg:
+    print(arg)
+    if not arg: #if empty
+        await ctx.send("Bitcoin Cash Address Required") 
+    else:
         if not (response.get('txId') is None):
             await ctx.send("Sent")
             await ctx.send("Transaction Id: "+response["txId"])
         else:
             await ctx.send("Not Sent") 
             await ctx.send("Message: "+response["message"])
-    else:
-        await ctx.send("Bitcoin Cash Address Required") 
 
 client.run("ODAyMzg1NjkzMzQ3MDIwODAw.YAud6A.AxIxokhGFc38VJtrxYsZ2sT_zv4")
